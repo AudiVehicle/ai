@@ -63,7 +63,7 @@ def define_model():
 
 
 # plot diagnostic learning curves
-def summarize_diagnostics(history):
+def summarize_diagnostics(history, epoch):
     # plot loss
     pyplot.subplot(211)
     pyplot.title('Cross Entropy Loss')
@@ -76,7 +76,7 @@ def summarize_diagnostics(history):
     pyplot.plot(history.history['val_accuracy'], color='orange', label='test')
     # save plot to file
     filename = sys.argv[0].split('/')[-1]
-    pyplot.savefig(filename + '_plot.png')
+    pyplot.savefig(filename + "_" + str(epoch) + '_plot.png')
     pyplot.close()
 
 
@@ -89,12 +89,14 @@ def run_test_harness():
     # define model
     model = define_model()
     # fit model
-    history = model.fit(trainX, trainY, epochs=50, batch_size=64, validation_data=(testX, testY), verbose=0)
+    epoch = 10
+    history = model.fit(trainX, trainY, epochs=epoch, batch_size=64, validation_data=(testX, testY), verbose=0)
     # evaluate model
     _, acc = model.evaluate(testX, testY, verbose=0)
-    print('> %.3f' % (acc * 100.0))
+    print("测试集准确率：" + str(acc))
     # learning curves
-    summarize_diagnostics(history)
+    summarize_diagnostics(history, epoch)
+
 
 def load_data():
     """Loads [CIFAR10 dataset](https://www.cs.toronto.edu/~kriz/cifar.html).
@@ -114,7 +116,7 @@ def load_data():
         **y_train, y_test**: uint8 arrays of category labels
           (integers in range 0-9) each with shape (num_samples, 1).
     """
-    path = '/Users/wangquanzhou/IdeaProjects/ai/dataset/cifar-10-batches-py'
+    path = 'E:\\pyCharmProj\\ai\\dataset\\cifar-10-batches-py'
 
     num_train_samples = 500
 
