@@ -144,7 +144,7 @@ def load_data():
     return (x_train, y_train), (x_test, y_test)
 
 
-def load_batch(fpath, label_key='labels'):
+def  load_batch(fpath, label_key='labels'):
     """Internal utility for parsing CIFAR data.
 
     Arguments:
