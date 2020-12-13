@@ -76,7 +76,7 @@ def summarize_diagnostics(history, epoch):
     pyplot.plot(history.history['val_accuracy'], color='orange', label='test')
     # save plot to file
     filename = sys.argv[0].split('/')[-1]
-    pyplot.savefig(filename + "_" + str(epoch) + '_plot.png')
+    pyplot.savefig(filename + "_" + str(epoch) + '_epochs.png')
     pyplot.close()
 
 
@@ -89,7 +89,7 @@ def run_test_harness():
     # define model
     model = define_model()
     # fit model
-    epoch = 10
+    epoch = 50
     history = model.fit(trainX, trainY, epochs=epoch, batch_size=64, validation_data=(testX, testY), verbose=0)
     # evaluate model
     _, acc = model.evaluate(testX, testY, verbose=0)
