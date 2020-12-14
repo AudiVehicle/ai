@@ -163,7 +163,7 @@ class Solver(object):
         self.loss_history.append(loss)
 
         # Perform a parameter update
-        for p, w in self.model.params.iteritems():
+        for p, w in self.model.params.items():
             dw = grads[p]
             config = self.optim_configs[p]
             next_w, next_config = self.update_rule(w, dw, config)
@@ -200,7 +200,7 @@ class Solver(object):
         if N % batch_size != 0:
             num_batches += 1
         y_pred = []
-        for i in xrange(num_batches):
+        for i in range(int(num_batches)):
             start = i * batch_size
             end = (i + 1) * batch_size
             scores = self.model.loss(X[start:end])
@@ -255,7 +255,7 @@ class Solver(object):
                 if val_acc > self.best_val_acc:
                     self.best_val_acc = val_acc
                     self.best_params = {}
-                    for k, v in self.model.params.iteritems():
+                    for k, v in self.model.params.items():
                         self.best_params[k] = v.copy()
 
         # At the end of training swap the best params into the model

@@ -12,7 +12,8 @@ def affine_relu_forward(x, w, b):
 def affine_forward(x, w, b):
     out = None
     N = x.shape[0]
-    x_row = x.reshepe(N, -1)
+    x_row = np.reshape(x, (N, -1))
+    # x_row = x.reshepe(N, -1)
     out = np.dot(x_row, w) + b
     cache = (x, w, b)
     return out, cache
@@ -41,10 +42,10 @@ def softmax_loss(x, y):
 
 
 def affine_relu_backward(dout, cache):
-  """
-  Backward pass for the affine-relu convenience layer
-  """
-  fc_cache, relu_cache = cache
-  da = relu_backward(dout, relu_cache)
-  dx, dw, db = affine_backward(da, fc_cache)
-  return dx, dw, db
+    """
+    Backward pass for the affine-relu convenience layer
+    """
+    fc_cache, relu_cache = cache
+    da = relu_backward(dout, relu_cache)
+    dx, dw, db = affine_backward(da, fc_cache)
+    return dx, dw, db
