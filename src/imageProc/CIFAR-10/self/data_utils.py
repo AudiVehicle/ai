@@ -13,7 +13,7 @@ def get_CIFAR10_data(num_training=5000, num_validation=500, num_test=500):
         cifar10_dir = '/Users/wangquanzhou/IdeaProjects/ai/dataset/cifar-10-batches-py'
 
     X_train, y_train, X_test, y_test = load_CIFAR10(cifar10_dir)
-    print(X_train.shape)
+    print('train data size = ' + str(X_train.shape))
     mask = range(num_training, num_training + num_validation)
     X_val = X_train[mask]
     y_val = y_train[mask]
@@ -29,6 +29,7 @@ def get_CIFAR10_data(num_training=5000, num_validation=500, num_test=500):
     X_val -= mean_image
     X_test -= mean_image
 
+    # 这里为什么要再做一次变换呢？
     X_train = X_train.transpose(0, 3, 1, 2).copy()
     X_val = X_val.transpose(0, 3, 1, 2).copy()
     X_test = X_test.transpose(0, 3, 1, 2).copy()
@@ -59,6 +60,8 @@ def load_CIFAR_batch(filename):
         datadict = pickle.load(f, encoding='latin1')
         X = datadict['data']
         Y = datadict['labels']
+        # transpose(0, 2, 3, 1)就是将原数组（0，1，2，3）的元素顺序换成（0，2，3，1）
+        # 这里为什么要做一次变换呢？2020年12月14日19:43:11
         X = X.reshape(10000, 3, 32, 32).transpose(0, 2, 3, 1).astype("float")
         Y = np.array(Y)
         return X, Y
