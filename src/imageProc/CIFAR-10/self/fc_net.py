@@ -17,7 +17,7 @@ class TwoLayerNet(object):
     The outputs of the second fully-connected layer are the scores for each class.
     """
 
-    def __init__(self, input_size, hidden_size, output_size, std=1e-4):
+    def __init__(self, input_size=3 * 32 * 32, hidden_size=100, output_size=10, std=1e-4):
         """
         Initialize the model. Weights are initialized to small random values and
         biases are initialized to zero. Weights and biases are stored in the
