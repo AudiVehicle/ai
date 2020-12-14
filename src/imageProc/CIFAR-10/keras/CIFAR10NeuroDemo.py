@@ -124,18 +124,20 @@ def load_data():
         print("system_type = " + system_type)
         path = '/Users/wangquanzhou/IdeaProjects/ai/dataset/cifar-10-batches-py'
 
-    num_train_samples = 500
+    count = 1000
+    num_train_samples = 5 * count
 
     x_train = np.empty((num_train_samples, 3, 32, 32), dtype='uint8')
     y_train = np.empty((num_train_samples,), dtype='uint8')
 
     for i in range(1, 6):
         fpath = os.path.join(path, 'data_batch_' + str(i))
-        (x_train[(i - 1) * 100:i * 100, :, :, :],
-         y_train[(i - 1) * 100:i * 100]) = load_batch(fpath)
+
+        (x_train[(i - 1) * count:i * count, :, :, :],
+         y_train[(i - 1) * count:i * count]) = load_batch(fpath, count)
 
     fpath = os.path.join(path, 'test_batch')
-    x_test, y_test = load_batch(fpath)
+    x_test, y_test = load_batch(fpath, count)
 
     y_train = np.reshape(y_train, (len(y_train), 1))
     y_test = np.reshape(y_test, (len(y_test), 1))
@@ -150,7 +152,7 @@ def load_data():
     return (x_train, y_train), (x_test, y_test)
 
 
-def load_batch(fpath, label_key='labels'):
+def load_batch(fpath, count=100, label_key='labels'):
     """Internal utility for parsing CIFAR data.
 
     Arguments:
@@ -172,9 +174,9 @@ def load_batch(fpath, label_key='labels'):
                 d_decoded[k.decode('utf8')] = v
             d = d_decoded
     data = d['data']
-    data = data[0:100]
+    data = data[0:count]
     labels = d[label_key]
-    labels = labels[0:100]
+    labels = labels[0:count]
 
     data = data.reshape(data.shape[0], 3, 32, 32)
     return data, labels
