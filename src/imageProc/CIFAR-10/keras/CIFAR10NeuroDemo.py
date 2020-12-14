@@ -90,7 +90,7 @@ def run_test_harness():
     # define model
     model = define_model()
     # fit model
-    epoch = 50
+    epoch = 100
     history = model.fit(trainX, trainY, epochs=epoch, batch_size=64, validation_data=(testX, testY), verbose=0)
     # evaluate model
     _, acc = model.evaluate(testX, testY, verbose=0)
@@ -124,7 +124,7 @@ def load_data():
         print("system_type = " + system_type)
         path = '/Users/wangquanzhou/IdeaProjects/ai/dataset/cifar-10-batches-py'
 
-    count = 1000
+    count = 5000
     num_train_samples = 5 * count
 
     x_train = np.empty((num_train_samples, 3, 32, 32), dtype='uint8')

@@ -4,7 +4,7 @@ from layers import *
 
 def affine_relu_forward(x, w, b):
     a, fc_cache = affine_forward(x, w, b)
-    out, relu_cache = relu_forwrd(a)
+    out, relu_cache = relu_forward(a)
     cache = (fc_cache, relu_cache)
     return out, cache
 
@@ -22,6 +22,7 @@ def relu_forward(x):
     out = None
     out = ReLu(x)
     cache = x
+    return out, cache
 
 
 def ReLu(x):
@@ -39,8 +40,11 @@ def softmax_loss(x, y):
     return loss, dx
 
 
-def affine_relu_backward(x, w, b):
-    fc_cache, relu_cache = cache
-    da = relu_backward(dout, relu_cache)
-    dx, dw, db = affine_backward(da, fc_cache)
-    return dx, dw, db
+def affine_relu_backward(dout, cache):
+  """
+  Backward pass for the affine-relu convenience layer
+  """
+  fc_cache, relu_cache = cache
+  da = relu_backward(dout, relu_cache)
+  dx, dw, db = affine_backward(da, fc_cache)
+  return dx, dw, db
