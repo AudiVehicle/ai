@@ -3,6 +3,8 @@ from fc_net import *
 from data_utils import get_CIFAR10_data
 from solver import Solver
 
+## https://github.com/yunjey/cs231n
+
 data = get_CIFAR10_data()
 model = TwoLayerNet(reg=0.5)
 solver = Solver(model, data, lr_decay=0.95, print_every=100, num_epocjs=40, batch_size=400,
