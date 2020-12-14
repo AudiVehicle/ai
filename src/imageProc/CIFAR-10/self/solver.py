@@ -1,4 +1,5 @@
-from optim import *
+import optim
+import numpy as np
 
 
 class Solver(object):
@@ -143,7 +144,7 @@ class Solver(object):
         # Make a deep copy of the optim_config for each parameter
         self.optim_configs = {}
         for p in self.model.params:
-            d = {k: v for k, v in self.optim_config.iteritems()}
+            d = {k: v for k, v in self.optim_config.items()}
             self.optim_configs[p] = d
 
     def _step(self):
@@ -215,9 +216,9 @@ class Solver(object):
         """
         num_train = self.X_train.shape[0]
         iterations_per_epoch = max(num_train / self.batch_size, 1)
-        num_iterations = self.num_epochs * iterations_per_epoch
+        num_iterations = int(self.num_epochs * iterations_per_epoch)
 
-        for t in xrange(num_iterations):
+        for t in range(num_iterations):
             self._step()
 
             # Maybe print training loss
