@@ -15,6 +15,7 @@ from tensorflow.python.keras import backend as K
 import os
 import sys
 import ssl
+import platform
 
 
 # load train and test dataset
@@ -116,7 +117,12 @@ def load_data():
         **y_train, y_test**: uint8 arrays of category labels
           (integers in range 0-9) each with shape (num_samples, 1).
     """
-    path = 'E:\\pyCharmProj\\ai\\dataset\\cifar-10-batches-py'
+    system_type = platform.system()
+    if (system_type == 'Windows'):
+        path = 'E:\\pyCharmProj\\ai\\dataset\\cifar-10-batches-py'
+    else:
+        print("system_type = " + system_type)
+        path = '/Users/wangquanzhou/IdeaProjects/ai/dataset/cifar-10-batches-py'
 
     num_train_samples = 500
 
@@ -144,7 +150,7 @@ def load_data():
     return (x_train, y_train), (x_test, y_test)
 
 
-def  load_batch(fpath, label_key='labels'):
+def load_batch(fpath, label_key='labels'):
     """Internal utility for parsing CIFAR data.
 
     Arguments:
