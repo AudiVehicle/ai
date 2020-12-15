@@ -231,6 +231,7 @@ class Solver(object):
             if epoch_end:
                 self.epoch += 1
                 for k in self.optim_configs:
+                    # self.lr_decay这里等于1  是不是意味着下面这句话没用？？？
                     self.optim_configs[k]['learning_rate'] *= self.lr_decay
 
             # Check train and val accuracy on the first iteration, the last
