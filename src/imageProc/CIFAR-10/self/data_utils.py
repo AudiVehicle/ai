@@ -13,7 +13,7 @@ def get_CIFAR10_data(num_training=5000, num_validation=500, num_test=500):
         cifar10_dir = '/Users/wangquanzhou/IdeaProjects/ai/dataset/cifar-10-batches-py'
 
     X_train, y_train, X_test, y_test = load_CIFAR10(cifar10_dir)
-    print('train data size = ' + str(X_train.shape))
+    # print('train data size = ' + str(X_train.shape))
     mask = range(num_training, num_training + num_validation)
     X_val = X_train[mask]
     y_val = y_train[mask]
