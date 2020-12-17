@@ -2,6 +2,8 @@ import matplotlib.pyplot as plt
 from fc_net import *
 from data_utils import get_CIFAR10_data
 from solver import Solver
+import string
+import random
 
 ## https://github.com/yunjey/cs231n
 ## https://github.com/martinkersner/cs231n
@@ -28,5 +30,5 @@ plt.xlabel('Epoch')
 plt.legend(loc='lower right')
 plt.gcf().set_size_inches(15, 12)
 # plt.show()
-plt.savefig('loss&train.png')
+plt.savefig(''.join(random.sample(string.ascii_letters + string.digits, 4))+'_loss&train.png')
 plt.close()
