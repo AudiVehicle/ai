@@ -4,7 +4,7 @@ import numpy as np
 import os
 
 
-def get_CIFAR10_data(num_training=30000, num_validation=500, num_test=500):
+def get_CIFAR10_data(num_training=45000, num_validation=5000, num_test=5000):
     system_type = platform.system()
     if (system_type == 'Windows'):
         cifar10_dir = 'E:\\pyCharmProj\\ai\\dataset\\cifar-10-batches-py'
@@ -42,7 +42,7 @@ def get_CIFAR10_data(num_training=30000, num_validation=500, num_test=500):
 def load_CIFAR10(ROOT):
     xs = []
     ys = []
-    for b in range(1, 5):
+    for b in range(1, 6):
         f = os.path.join(ROOT, 'data_batch_%d' % (b,))
         X, Y = load_CIFAR_batch(f)
         xs.append(X)

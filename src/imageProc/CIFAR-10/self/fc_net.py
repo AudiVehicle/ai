@@ -19,7 +19,7 @@ class TwoLayerNet(object):
     """
 
     def __init__(self, input_dim=3 * 32 * 32, hidden_dim=100, num_classes=10,
-                 weight_scale=1e-3, reg=0.0):
+                 weight_scale=1e-3, reg=0.01):
         """
         Initialize a new network.
 
