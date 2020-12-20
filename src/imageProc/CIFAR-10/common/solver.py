@@ -1,5 +1,6 @@
-import common.optim
 import numpy as np
+
+from common import optim
 
 
 class Solver(object):
@@ -122,9 +123,9 @@ class Solver(object):
 
         # Make sure the update rule exists, then replace the string
         # name with the actual function
-        # if not hasattr(optim, self.update_rule):
-        #     raise ValueError('Invalid update_rule "%s"' % self.update_rule)
-        # self.update_rule = getattr(optim, self.update_rule)
+        if not hasattr(optim, self.update_rule):
+            raise ValueError('Invalid update_rule "%s"' % self.update_rule)
+        self.update_rule = getattr(optim, self.update_rule)
 
         self._reset()
 
