@@ -4,7 +4,7 @@ import numpy as np
 import os
 
 
-def get_CIFAR10_data(num_training=45000, num_validation=5000, num_test=5000):
+def get_CIFAR10_data(num_training=5000, num_validation=500, num_test=500):
     system_type = platform.system()
     if (system_type == 'Windows'):
         cifar10_dir = 'E:\\pyCharmProj\\ai\\dataset\\cifar-10-batches-py'

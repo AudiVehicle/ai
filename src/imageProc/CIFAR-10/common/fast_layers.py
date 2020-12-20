@@ -1,7 +1,9 @@
 import numpy as np
 
+from common.im2col_cython import col2im_cython, im2col_cython
+from common.im2col_cython import col2im_6d_cython
+
 from common.im2col import *
-from common.im2col_cython import *
 
 
 def conv_forward_im2col(x, w, b, conv_param):

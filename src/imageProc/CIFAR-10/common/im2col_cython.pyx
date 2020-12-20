@@ -5,6 +5,8 @@ cimport cython
 # DTYPE = np.float64
 # ctypedef np.float64_t DTYPE_t
 
+## 如何编译该文件可以参考：https://zhuanlan.zhihu.com/p/24311879
+
 ctypedef fused DTYPE_t:
     np.float32_t
     np.float64_t
