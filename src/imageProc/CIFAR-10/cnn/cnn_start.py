@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 from cnn.cnn_net import *
 from common.data_utils import get_CIFAR10_data
 from common.solver import Solver
+import time
 import string
 import random
 
@@ -29,5 +30,5 @@ plt.xlabel('Epoch')
 plt.legend(loc='lower right')
 plt.gcf().set_size_inches(15, 12)
 # plt.show()
-plt.savefig(''.join(random.sample(string.ascii_letters + string.digits, 4)) + '_loss&train.png')
+plt.savefig(str(round(time.time() * 1000)) + '_loss&train.png')
 plt.close()
