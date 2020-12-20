@@ -1,4 +1,4 @@
-import optim
+import common.optim
 import numpy as np
 
 
@@ -122,9 +122,9 @@ class Solver(object):
 
         # Make sure the update rule exists, then replace the string
         # name with the actual function
-        if not hasattr(optim, self.update_rule):
-            raise ValueError('Invalid update_rule "%s"' % self.update_rule)
-        self.update_rule = getattr(optim, self.update_rule)
+        # if not hasattr(optim, self.update_rule):
+        #     raise ValueError('Invalid update_rule "%s"' % self.update_rule)
+        # self.update_rule = getattr(optim, self.update_rule)
 
         self._reset()
 
@@ -247,7 +247,7 @@ class Solver(object):
 
                 if self.verbose:
                     print('(Epoch %d / %d) train acc: %f; val_acc: %f' % (
-                    self.epoch, self.num_epochs, train_acc, val_acc))
+                        self.epoch, self.num_epochs, train_acc, val_acc))
 
                 # Keep track of the best model
                 if val_acc > self.best_val_acc:

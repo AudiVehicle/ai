@@ -1,5 +1,5 @@
 import numpy as np
-from layer_utils import *
+from common.layer_utils import *
 
 
 class TwoLayerNet(object):

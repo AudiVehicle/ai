@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-from self.fc_net import *
+from cnn.cnn_net import *
 from common.data_utils import get_CIFAR10_data
 from common.solver import Solver
 import string
@@ -9,9 +9,8 @@ import random
 ## https://github.com/martinkersner/cs231n
 
 data = get_CIFAR10_data()
-model = TwoLayerNet(reg=0.5)
-# model = TwoLayerNet()
-solver = Solver(model, data, lr_decay=0.95, print_every=100, num_epochs=40, batch_size=400,
+model = ThreeLayerConvNet(reg=0.5)
+solver = Solver(model, data, lr_decay=0.95, print_every=10, num_epochs=5, batch_size=2,
                 update_rule='sgd_momentum', optim_config={'learning_rate': 5e-4, 'momentum': 0.9})
 solver.train()
 
