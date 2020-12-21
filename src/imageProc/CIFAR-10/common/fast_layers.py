@@ -41,6 +41,7 @@ def conv_forward_strides(x, w, b, conv_param):
     stride, pad = conv_param['stride'], conv_param['pad']
 
     # Check dimensions
+    ## stride=1 会不会太小了？
     assert (W + 2 * pad - WW) % stride == 0, 'width does not work'
     assert (H + 2 * pad - HH) % stride == 0, 'height does not work'
 
@@ -54,6 +55,7 @@ def conv_forward_strides(x, w, b, conv_param):
     out_h = int((H - HH) / stride + 1)
     out_w = int((W - WW) / stride + 1)
 
+    # 下面这一串计算  没看懂。。。
     # Perform an im2col operation by picking clever strides
     shape = (C, HH, WW, N, out_h, out_w)
     strides = (H * W, W, 1, C * H * W, stride * W, stride)

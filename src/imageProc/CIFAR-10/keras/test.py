@@ -10,8 +10,10 @@ print(''.join(random.sample(string.ascii_letters + string.digits, 8)))
 for b in range(1, 5):
     print(b)
 
-
-
 import time
+
 millis = int(round(time.time() * 1000))
 print(millis)
+
+a = (1, 2, 3)
+print(a)
