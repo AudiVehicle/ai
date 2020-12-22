@@ -56,6 +56,7 @@ def conv_forward_strides(x, w, b, conv_param):
     out_w = int((W - WW) / stride + 1)
 
     # 下面这一串计算  没看懂。。。
+    #  https://zhuanlan.zhihu.com/p/63974249
     # Perform an im2col operation by picking clever strides
     shape = (C, HH, WW, N, out_h, out_w)
     strides = (H * W, W, 1, C * H * W, stride * W, stride)
