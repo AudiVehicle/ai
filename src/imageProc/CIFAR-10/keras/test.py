@@ -1,6 +1,7 @@
 import platform
 import random
 import string
+import numpy as np
 
 print(platform.system())
 print(random.choice('abcdefghijklmnopqrstuvwxyz!@#$%^&*()'))
@@ -17,3 +18,10 @@ print(millis)
 
 a = (1, 2, 3)
 print(a)
+
+n = 1000
+a = np.arange(n)
+print(a)
+b = np.lib.stride_tricks.as_strided(a, (n, n), (0, 8))
+print(b)
+print(b.size, b.shape, b.nbytes)
