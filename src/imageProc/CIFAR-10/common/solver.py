@@ -220,6 +220,8 @@ class Solver(object):
         num_iterations = int(self.num_epochs * iterations_per_epoch)
 
         for t in range(num_iterations):
+
+            ## 开始训练
             self._step()
 
             # Maybe print training loss

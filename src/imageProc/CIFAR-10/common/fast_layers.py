@@ -61,8 +61,10 @@ def conv_forward_strides(x, w, b, conv_param):
     shape = (C, HH, WW, N, out_h, out_w)
     strides = (H * W, W, 1, C * H * W, stride * W, stride)
     strides = x.itemsize * np.array(strides)
-    x_stride = np.lib.stride_tricks.as_strided(x_padded,
-                                               shape=shape, strides=strides.astype(int))
+    # https://blog.csdn.net/shwan_ma/article/details/78244044
+    #  https://blog.csdn.net/weixin_46559271/article/details/105188300
+    # fixme 为啥x_stride的总大小和x_padded不等呢？变换完，数据量还增加了？？？
+    x_stride = np.lib.stride_tricks.as_strided(x_padded, shape=shape, strides=strides.astype(int))
     x_cols = np.ascontiguousarray(x_stride)
     x_cols.shape = (C * HH * WW, N * out_h * out_w)
 
