@@ -2,8 +2,10 @@ import copy, numpy as np
 
 np.random.seed(0)
 
+
 ## 源码链接
 ## http://iamtrask.github.io/2015/11/15/anyone-can-code-lstm/
+## 神经网络完成一个简单的任务，二进制加法
 
 # compute sigmoid nonlinearity
 def sigmoid(x):
@@ -71,6 +73,7 @@ for j in range(10000):
         y = np.array([[c[binary_dim - position - 1]]]).T
 
         # hidden layer (input ~+ prev_hidden)
+        # layer_1_values[-1]代表取layer_1_values数组的最后一项
         layer_1 = sigmoid(np.dot(X, synapse_0) + np.dot(layer_1_values[-1], synapse_h))
 
         # output layer (new binary representation)
@@ -85,6 +88,7 @@ for j in range(10000):
         d[binary_dim - position - 1] = np.round(layer_2[0][0])
 
         # store hidden layer so we can use it in the next timestep
+        # 每次缓存上一位计算的结果，下一步计算使用
         layer_1_values.append(copy.deepcopy(layer_1))
 
     future_layer_1_delta = np.zeros(hidden_dim)
