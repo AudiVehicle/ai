@@ -5,12 +5,13 @@ import tensorflow as tf            #tens框架
 import numpy as np                 #数组函数包
 import time                        #时间模块
 
+## tf v1 版本
 ## https://blog.csdn.net/mndlgzzd/article/details/104344987
 
 #数据集地址
-path='E:/花朵分类/flower_photos/'
+path='/Users/wangquanzhou/IdeaProjects/ai/dataset/flower_photos'
 #模型保存地址
-model_path='E:/花朵分类/ckpt_dir/model'
+model_path='/Users/wangquanzhou/IdeaProjects/ai/model'
 
 # 将所有的图片resize成100*100
 w = 100  # 宽度
@@ -123,15 +124,15 @@ def inference(input_tensor, train, regularizer):
 
 
 regularizer = tf.contrib.layers.l2_regularizer(0.0001)
-logits = inference(x, False, regularizer)
+logits = inference(x_train, False, regularizer)
 
 # (小处理)将logits乘以1赋值给logits_eval，定义name，方便在后续调用模型时通过tensor名字调用输出tensor
 b = tf.constant(value=1, dtype=tf.float32)
 logits_eval = tf.multiply(logits, b, name='logits_eval')
 
-loss = tf.nn.sparse_softmax_cross_entropy_with_logits(logits=logits, labels=y_)
+loss = tf.nn.sparse_softmax_cross_entropy_with_logits(logits=logits, labels=y_train)
 train_op = tf.train.AdamOptimizer(learning_rate=0.001).minimize(loss)
-correct_prediction = tf.equal(tf.cast(tf.argmax(logits, 1), tf.int32), y_)
+correct_prediction = tf.equal(tf.cast(tf.argmax(logits, 1), tf.int32), y_train)
 acc = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 
 
@@ -160,7 +161,7 @@ for epoch in range(n_epoch):
     # training
     train_loss, train_acc, n_batch = 0, 0, 0
     for x_train_a, y_train_a in minibatches(x_train, y_train, batch_size, shuffle=True):
-        _, err, ac = sess.run([train_op, loss, acc], feed_dict={x: x_train_a, y_: y_train_a})
+        _, err, ac = sess.run([train_op, loss, acc], feed_dict={x_train: x_train_a, y_train: y_train_a})
         train_loss += err;
         train_acc += ac;
         n_batch += 1
@@ -170,7 +171,7 @@ for epoch in range(n_epoch):
     # validation
     val_loss, val_acc, n_batch = 0, 0, 0
     for x_val_a, y_val_a in minibatches(x_val, y_val, batch_size, shuffle=False):
-        err, ac = sess.run([loss, acc], feed_dict={x: x_val_a, y_: y_val_a})
+        err, ac = sess.run([loss, acc], feed_dict={x_val: x_val_a, y_val: y_val_a})
         val_loss += err;
         val_acc += ac;
         n_batch += 1
