@@ -101,6 +101,7 @@ model.compile(optimizer='adam',
 
 model.summary()
 
+## Train the model
 epochs=10
 history = model.fit(
   train_ds,
