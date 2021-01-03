@@ -69,7 +69,11 @@ for image_batch, labels_batch in train_ds:
 
 AUTOTUNE = tf.data.experimental.AUTOTUNE
 
+## Dataset.cache() keeps the images in memory after they're loaded off disk during the first epoch.
+# This will ensure the dataset does not become a bottleneck while training your model.
+# If your dataset is too large to fit into memory, you can also use this method to create a performant on-disk cache.
 train_ds = train_ds.cache().shuffle(1000).prefetch(buffer_size=AUTOTUNE)
+## Dataset.prefetch() overlaps data preprocessing and model execution while training.
 val_ds = val_ds.cache().prefetch(buffer_size=AUTOTUNE)
 
 normalization_layer = layers.experimental.preprocessing.Rescaling(1./255)
@@ -109,6 +113,8 @@ history = model.fit(
   epochs=epochs
 )
 
+
+## Visualize training results
 acc = history.history['accuracy']
 val_acc = history.history['val_accuracy']
 
