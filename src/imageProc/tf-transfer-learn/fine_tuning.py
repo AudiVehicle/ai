@@ -1,4 +1,5 @@
 import pathlib
+import ssl
 import time
 
 import matplotlib.pyplot as plt
@@ -8,6 +9,7 @@ import tensorflow as tf
 
 from tensorflow.keras.preprocessing import image_dataset_from_directory
 
+ssl._create_default_https_context = ssl._create_unverified_context
 path = '/Users/wangquanzhou/IdeaProjects/ai/dataset/cats_and_dogs_filtered'
 BATCH_SIZE = 32
 IMG_SIZE = (160, 160)
