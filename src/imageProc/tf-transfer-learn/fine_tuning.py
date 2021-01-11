@@ -88,6 +88,9 @@ x = tf.keras.layers.Dropout(0.2)(x)
 outputs = prediction_layer(x)
 model = tf.keras.Model(inputs, outputs)
 
+
+## Compile the model before training it. Since there are two classes,
+# use a binary cross-entropy loss with from_logits=True since the model provides a linear output.
 base_learning_rate = 0.0001
 model.compile(optimizer=tf.keras.optimizers.Adam(lr=base_learning_rate),
               loss=tf.keras.losses.BinaryCrossentropy(from_logits=True),
@@ -133,6 +136,8 @@ plt.xlabel('epoch')
 plt.savefig(str(round(time.time() * 1000)) + '_loss&train.png')
 plt.close()
 
+## 以上代码的分类准确率已经可以达到94%
+
 #############
 # Fine tuning
 #############
@@ -140,6 +145,7 @@ base_model.trainable = True
 # Let's take a look to see how many layers are in the base model
 print("Number of layers in the base model: ", len(base_model.layers))
 
+# 只更新100层以后的代码
 # Fine-tune from this layer onwards
 fine_tune_at = 100
 
