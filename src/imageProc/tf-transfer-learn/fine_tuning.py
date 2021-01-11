@@ -64,11 +64,13 @@ image_batch, label_batch = next(iter(train_dataset))
 feature_batch = base_model(image_batch)
 print(feature_batch.shape)
 
+## 如下设置可以禁止更新模型的卷积训练参数，从而防止模型参数恶化
 base_model.trainable = False
 
 # Let's take a look at the base model architecture
 base_model.summary()
 
+## 添加结果分类层
 global_average_layer = tf.keras.layers.GlobalAveragePooling2D()
 feature_batch_average = global_average_layer(feature_batch)
 print(feature_batch_average.shape)
