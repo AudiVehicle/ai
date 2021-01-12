@@ -153,6 +153,9 @@ fine_tune_at = 100
 for layer in base_model.layers[:fine_tune_at]:
     layer.trainable = False
 
+## 更低的学习率可以有效防止过拟合
+# As you are training a much larger model and want to readapt the pretrained weights,
+# it is important to use a lower learning rate at this stage. Otherwise, your model could overfit very quickly.
 model.compile(loss=tf.keras.losses.BinaryCrossentropy(from_logits=True),
               optimizer=tf.keras.optimizers.RMSprop(lr=base_learning_rate / 10),
               metrics=['accuracy'])
