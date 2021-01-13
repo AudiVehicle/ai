@@ -134,7 +134,7 @@ plt.title('Training and Validation Loss')
 plt.xlabel('epoch')
 # plt.show()
 plt.savefig(str(round(time.time() * 1000)) + '_loss&train.png')
-plt.close()
+# plt.close()
 
 ## 以上代码的分类准确率已经可以达到94%
 
@@ -197,7 +197,7 @@ plt.title('Training and Validation Loss')
 plt.xlabel('epoch')
 # plt.show()
 plt.savefig(str(round(time.time() * 1000)) + '_loss&train.png')
-plt.close()
+# plt.close()
 
 loss, accuracy = model.evaluate(test_dataset)
 print('Test accuracy :', accuracy)
@@ -220,3 +220,4 @@ for i in range(9):
     plt.imshow(image_batch[i].astype("uint8"))
     plt.title(class_names[predictions[i]])
     plt.axis("off")
+plt.close()
