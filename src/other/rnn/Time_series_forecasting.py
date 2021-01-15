@@ -11,6 +11,7 @@ import seaborn as sns
 import tensorflow as tf
 from windowGenerator import WindowGenerator
 from baseline import Baseline
+import time
 
 mpl.rcParams['figure.figsize'] = (8, 6)
 mpl.rcParams['axes.grid'] = False
@@ -23,14 +24,14 @@ df = df[5::6]
 date_time = pd.to_datetime(df.pop('Date Time'), format='%d.%m.%Y %H:%M:%S')
 df.head()
 
-plot_cols = ['T (degC)', 'p (mbar)', 'rho (g/m**3)']
-plot_features = df[plot_cols]
-plot_features.index = date_time
-_ = plot_features.plot(subplots=True)
+# plot_cols = ['T (degC)', 'p (mbar)', 'rho (g/m**3)']
+# plot_features = df[plot_cols]
+# plot_features.index = date_time
+# _ = plot_features.plot(subplots=True)
 
-plot_features = df[plot_cols][:480]
-plot_features.index = date_time[:480]
-_ = plot_features.plot(subplots=True)
+# plot_features = df[plot_cols][:480]
+# plot_features.index = date_time[:480]
+# _ = plot_features.plot(subplots=True)
 
 df.describe().transpose()
 
@@ -49,10 +50,15 @@ plt.hist2d(df['wd (deg)'], df['wv (m/s)'], bins=(50, 50), vmax=400)
 plt.colorbar()
 plt.xlabel('Wind Direction [deg]')
 plt.ylabel('Wind Velocity [m/s]')
+plt.savefig(str(round(time.time() * 1000)) + '_Wind&Direction&Velocity.png')
+plt.close()
 
+
+## 将速度与风向角度结合为向量形式
 wv = df.pop('wv (m/s)')
 max_wv = df.pop('max. wv (m/s)')
 
+## 风向角度转弧度
 # Convert to radians.
 wd_rad = df.pop('wd (deg)') * np.pi / 180
 
@@ -70,12 +76,18 @@ plt.xlabel('Wind X [m/s]')
 plt.ylabel('Wind Y [m/s]')
 ax = plt.gca()
 ax.axis('tight')
+plt.savefig(str(round(time.time() * 1000)) + '_Wind&Radians&Velocity.png')
+plt.close()
 
+## 时间转换为以秒为单位的数字
 timestamp_s = date_time.map(datetime.datetime.timestamp)
 
 day = 24 * 60 * 60
 year = (365.2425) * day
 
+## Similar to the wind direction the time in seconds is not a useful model input.
+# Being weather data it has clear daily and yearly periodicity. There are many ways you could deal with periodicity.
+## A simple approach to convert it to a usable signal is to use sin and cos to convert the time to clear "Time of day" and "Time of year" signals:
 df['Day sin'] = np.sin(timestamp_s * (2 * np.pi / day))
 df['Day cos'] = np.cos(timestamp_s * (2 * np.pi / day))
 df['Year sin'] = np.sin(timestamp_s * (2 * np.pi / year))
@@ -85,6 +97,8 @@ plt.plot(np.array(df['Day sin'])[:25])
 plt.plot(np.array(df['Day cos'])[:25])
 plt.xlabel('Time [h]')
 plt.title('Time of day signal')
+plt.savefig(str(round(time.time() * 1000)) + '_Time_of_day_signal.png')
+plt.close()
 
 fft = tf.signal.rfft(df['T (degC)'])
 f_per_dataset = np.arange(0, len(fft))
