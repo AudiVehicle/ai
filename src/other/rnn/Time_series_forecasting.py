@@ -113,8 +113,17 @@ plt.xscale('log')
 plt.ylim(0, 400000)
 plt.xlim([0.1, max(plt.xlim())])
 plt.xticks([1, 365.2524], labels=['1/Year', '1/day'])
-_ = plt.xlabel('Frequency (log scale)')
+plt.xlabel('Frequency (log scale)')
+plt.savefig(str(round(time.time() * 1000)) + '_Frequency.png')
+plt.close()
 
+
+# 注意这里不像之前图像识别那里会对数据进行随机打乱顺序，因为RNN需要的是时序性的数据
+# We'll use a (70%, 20%, 10%) split for the training, validation, and test sets. Note the data is not being randomly shuffled before splitting.
+# This is for two reasons.
+#
+# It ensures that chopping the data into windows of consecutive samples is still possible.
+# It ensures that the validation/test results are more realistic, being evaluated on data collected after the model was trained.
 column_indices = {name: i for i, name in enumerate(df.columns)}
 
 n = len(df)
@@ -124,6 +133,9 @@ test_df = df[int(n * 0.9):]
 
 num_features = df.shape[1]
 
+# It is important to scale features before training a neural network. Normalization is a common way of doing this scaling. Subtract the mean and divide by the standard deviation of each feature.
+#
+# The mean and standard deviation should only be computed using the training data so that the models have no access to the values in the validation and test sets.
 train_mean = train_df.mean()
 train_std = train_df.std()
 
