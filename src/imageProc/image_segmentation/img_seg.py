@@ -1,3 +1,5 @@
+import time
+
 import tensorflow as tf
 import ssl
 
@@ -76,6 +78,7 @@ def display(display_list):
         plt.title(title[i])
         plt.imshow(tf.keras.preprocessing.image.array_to_img(display_list[i]))
         plt.axis('off')
+    plt.savefig(str(round(time.time() * 1000)) + '.png')
     plt.show()
 
 
@@ -83,8 +86,10 @@ for image, mask in train.take(1):
     sample_image, sample_mask = image, mask
 display([sample_image, sample_mask])
 
+## 输出信道数量为 3 是因为每个像素有三种可能的标签。把这想象成一个多类别分类，每个像素都将被分到三个类别当中
 OUTPUT_CHANNELS = 3
 
+## 下面选用的base_model和之前的transfer-learning使用的是同一个，都是「预训练的 MobileNetV2 模型」
 base_model = tf.keras.applications.MobileNetV2(input_shape=[128, 128, 3], include_top=False)
 
 # 使用这些层的激活设置
@@ -192,6 +197,7 @@ plt.xlabel('Epoch')
 plt.ylabel('Loss Value')
 plt.ylim([0, 1])
 plt.legend()
+plt.savefig(str(round(time.time() * 1000)) + '_Train&ValLoss.png')
 plt.show()
 
 show_predictions(test_dataset, 3)
