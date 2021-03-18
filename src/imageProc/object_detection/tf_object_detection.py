@@ -105,6 +105,7 @@ IMAGES_FOR_TEST = {
   'Birds' : 'https://upload.wikimedia.org/wikipedia/commons/0/09/The_smaller_British_birds_%288053836633%29.jpg',
 }
 
+## 人体关键点坐标
 COCO17_HUMAN_POSE_KEYPOINTS = [(0, 1),
  (0, 2),
  (1, 3),
@@ -129,9 +130,11 @@ from models.research.object_detection.utils import label_map_util
 from models.research.object_detection.utils import visualization_utils as viz_utils
 from models.research.object_detection.utils import ops as utils_ops
 
+##  所有的分类 类别标识  eg: person bicycle
 PATH_TO_LABELS = '../../../models/research/object_detection/data/mscoco_label_map.pbtxt'
 category_index = label_map_util.create_category_index_from_labelmap(PATH_TO_LABELS, use_display_name=True)
 
+# 选择指定的model
 #@title Model Selection { display-mode: "form", run: "auto" }
 model_display_name = 'CenterNet HourGlass104 Keypoints 512x512'
 # @param ['CenterNet HourGlass104 512x512','CenterNet HourGlass104 Keypoints 512x512','CenterNet HourGlass104 1024x1024','CenterNet HourGlass104 Keypoints 1024x1024','CenterNet Resnet50 V1 FPN 512x512','CenterNet Resnet50 V1 FPN Keypoints 512x512','CenterNet Resnet101 V1 FPN 512x512','CenterNet Resnet50 V2 512x512','CenterNet Resnet50 V2 Keypoints 512x512','EfficientDet D0 512x512','EfficientDet D1 640x640','EfficientDet D2 768x768','EfficientDet D3 896x896','EfficientDet D4 1024x1024','EfficientDet D5 1280x1280','EfficientDet D6 1280x1280','EfficientDet D7 1536x1536','SSD MobileNet v2 320x320','SSD MobileNet V1 FPN 640x640','SSD MobileNet V2 FPNLite 320x320','SSD MobileNet V2 FPNLite 640x640','SSD ResNet50 V1 FPN 640x640 (RetinaNet50)','SSD ResNet50 V1 FPN 1024x1024 (RetinaNet50)','SSD ResNet101 V1 FPN 640x640 (RetinaNet101)','SSD ResNet101 V1 FPN 1024x1024 (RetinaNet101)','SSD ResNet152 V1 FPN 640x640 (RetinaNet152)','SSD ResNet152 V1 FPN 1024x1024 (RetinaNet152)','Faster R-CNN ResNet50 V1 640x640','Faster R-CNN ResNet50 V1 1024x1024','Faster R-CNN ResNet50 V1 800x1333','Faster R-CNN ResNet101 V1 640x640','Faster R-CNN ResNet101 V1 1024x1024','Faster R-CNN ResNet101 V1 800x1333','Faster R-CNN ResNet152 V1 640x640','Faster R-CNN ResNet152 V1 1024x1024','Faster R-CNN ResNet152 V1 800x1333','Faster R-CNN Inception ResNet V2 640x640','Faster R-CNN Inception ResNet V2 1024x1024','Mask R-CNN Inception ResNet V2 1024x1024']
@@ -144,6 +147,7 @@ print('loading model...')
 hub_model = hub.load(model_handle)
 print('model loaded!')
 
+#  选择一张图像进行对象检测
 #@title Image Selection (don't forget to execute the cell!) { display-mode: "form"}
 selected_image = 'People' # @param ['Beach', 'Dogs', 'Naxos Taverna', 'Beatles', 'Phones', 'Birds']
 flip_image_horizontally = False #@param {type:"boolean"}
@@ -161,6 +165,7 @@ if(convert_image_to_grayscale):
   image_np[0] = np.tile(
     np.mean(image_np[0], 2, keepdims=True), (1, 1, 3)).astype(np.uint8)
 
+# 因为image_np只有一张图  所以取第0个也就是我们需要的图片
 plt.figure(figsize=(24,32))
 plt.imshow(image_np[0])
 plt.show()
