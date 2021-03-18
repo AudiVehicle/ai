@@ -93,6 +93,7 @@ ALL_MODELS = {
 
 IMAGES_FOR_TEST = {
   'Beach' : '../../../models/research/object_detection/test_images/image2.jpg',
+  'People' : '../../../models/research/object_detection/test_images/image3.jpeg',
   'Dogs' : '../../../models/research/object_detection/test_images/image1.jpg',
   # By Heiko Gorski, Source: https://commons.wikimedia.org/wiki/File:Naxos_Taverna.jpg
   'Naxos Taverna' : 'https://upload.wikimedia.org/wikipedia/commons/6/60/Naxos_Taverna.jpg',
@@ -144,7 +145,7 @@ hub_model = hub.load(model_handle)
 print('model loaded!')
 
 #@title Image Selection (don't forget to execute the cell!) { display-mode: "form"}
-selected_image = 'Beach' # @param ['Beach', 'Dogs', 'Naxos Taverna', 'Beatles', 'Phones', 'Birds']
+selected_image = 'People' # @param ['Beach', 'Dogs', 'Naxos Taverna', 'Beatles', 'Phones', 'Birds']
 flip_image_horizontally = False #@param {type:"boolean"}
 convert_image_to_grayscale = False #@param {type:"boolean"}
 
