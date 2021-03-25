@@ -1,4 +1,5 @@
 import numpy as np
+from tqdm import tqdm
 
 from common import optim
 
@@ -219,7 +220,8 @@ class Solver(object):
         iterations_per_epoch = max(num_train / self.batch_size, 1)
         num_iterations = int(self.num_epochs * iterations_per_epoch)
 
-        for t in range(num_iterations):
+        ## 增加进度条显示
+        for t in tqdm(range(num_iterations)):
 
             ## 开始训练
             self._step()
