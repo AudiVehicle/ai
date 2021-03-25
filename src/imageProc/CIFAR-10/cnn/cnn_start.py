@@ -11,7 +11,7 @@ import random
 
 data = get_CIFAR10_data()
 model = ThreeLayerConvNet(reg=0.5)
-solver = Solver(model, data, lr_decay=0.95, print_every=100, num_epochs=5, batch_size=20,
+solver = Solver(model, data, lr_decay=0.95, print_every=100, num_epochs=20, batch_size=20,
                 update_rule='sgd_momentum', optim_config={'learning_rate': 5e-4, 'momentum': 0.9})
 solver.train()
 
